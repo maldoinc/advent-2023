@@ -1,0 +1,6 @@
+### IntelliJ IDEA ###
+out/
+!**/src/main/**/out/
+!**/src/test/**/out/
+.idea
+/advent2023.iml
