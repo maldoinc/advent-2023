@@ -2,11 +2,14 @@ import java.io.File
 
 data class DeckSize(val red: Int, val green: Int, val blue: Int)
 
+fun getColorValues(draw: String, color: String): Sequence<Int> =
+    Regex("(\\d+) $color").findAll(draw).map { it.groupValues[1].toInt() }
+
 fun getColorSum(draw: String, color: String): Int =
-    Regex("(\\d+) $color").findAll(draw).map { it.groupValues[1] }.sumOf { it.toInt() }
+    getColorValues(draw, color).sum()
 
 fun getLargestColor(draw: String, color: String): Int =
-    Regex("(\\d+) $color").findAll(draw).map { it.groupValues[1] }.map { it.toInt() }.max()
+    getColorValues(draw, color).max()
 
 fun isGamePossible(game: String, deckSize: DeckSize): Boolean =
     game.split(';').firstOrNull {
