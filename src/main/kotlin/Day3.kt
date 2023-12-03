@@ -105,11 +105,10 @@ fun findGearRatio(input: MutableList<MutableList<Char>>, y: Int, x: Int): Int {
 /**
  * Part 2 takes the opposite approach to part 1, for every star find all digits around it.
  */
-fun getPart2Nums(input: MutableList<MutableList<Char>>): Int {
-    return input.flatMapIndexed { y, row ->
+fun getPart2Nums(input: MutableList<MutableList<Char>>): Int =
+    input.flatMapIndexed { y, row ->
         List(row.size) { x -> findGearRatio(input, y, x) }
     }.sum()
-}
 
 fun main(args: Array<String>) {
     val lines = Path(args[0]).readLines()
