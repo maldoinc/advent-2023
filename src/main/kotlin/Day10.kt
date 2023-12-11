@@ -1,7 +1,6 @@
 import java.util.*
 import kotlin.io.path.Path
 import kotlin.io.path.readLines
-import kotlin.math.max
 
 data class Coordinate(val y: Int, val x: Int)
 typealias Maze = List<String>
@@ -19,7 +18,6 @@ fun getStartingCoordinates(maze: Maze): Pair<Int, Int> =
 
 
 fun getPart1(start: Coordinate, maze: Maze): Int {
-    // Dijktra but cost go up ^
     val up = Coordinate(-1, 0)
     val down = Coordinate(1, 0)
     val left = Coordinate(0, -1)
@@ -37,14 +35,12 @@ fun getPart1(start: Coordinate, maze: Maze): Int {
     ).withDefault { setOf() }
     val costs: MutableMap<Coordinate, Int> = mutableMapOf()
     val queue: Queue<Pair<Coordinate, Int>> = PriorityQueue(compareBy { it.second })
-    var best = 0
     queue.add(start to 0)
 
     while (queue.isNotEmpty()) {
         val current = queue.poll()
         val currentCoords = current.first
         val steps = current.second
-        best = max(best, current.second)
 
         maze[currentCoords.y][currentCoords.x].let { char ->
             navigation.getValue(char).let { offsets ->
@@ -61,7 +57,7 @@ fun getPart1(start: Coordinate, maze: Maze): Int {
         }
     }
 
-    return best
+    return costs.values.max()
 }
 
 
